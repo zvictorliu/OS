@@ -79,9 +79,9 @@ int main(int argc, char **argv)
     getcwdstr(cwdbuf,MAX_BUFFER);
     // get starting cwd to add to readme pathname
     // TODO
-    char readmepathbuff[MAX_BUFFER]; 
-    strcpy(readmepathbuff,cwdbuf);
-    readmepath = strcat(readmepathbuff,"/readme.txt"); 
+    readmepath = malloc(MAX_BUFFER);
+    strcpy(readmepath,cwdbuf);
+    strcat(readmepath,"/readme.txt"); 
     //? why bother?
 
     // get starting cwd to add to shell pathname
@@ -91,8 +91,8 @@ int main(int argc, char **argv)
     // set SHELL= environment variable, malloc and store in environment
     // TODO
     char *new_env = malloc(MAX_BUFFER);
-    char header[MAX_BUFFER] = "SHELL=";
-    strcpy(new_env,strcat(header,cwdbuf));
+    strcpy(new_env,"SHELL=");
+    strcat(new_env, cwdbuf);
     putenv(new_env);
 
 
@@ -133,6 +133,12 @@ int main(int argc, char **argv)
                     // TODO 
                     if (args[1]){
                         chdir(args[1]);
+                        //TODO change PWD
+                        char *new_pwd = malloc(MAX_BUFFER);
+                        strcpy(new_pwd, "PWD=");
+                        getcwd(cwdbuf, MAX_BUFFER);
+                        strcat(new_pwd, cwdbuf);
+                        putenv(new_pwd);
                     }
                     else{
                         char buf[100];
