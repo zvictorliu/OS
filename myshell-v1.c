@@ -60,9 +60,12 @@ int main(int argc, char **argv)
                     // "clr" command
                     strcpy(cmndbuf, "clear");
                 }
-                // else if (!strcmp(args[0], "cd")){
-
-                // }
+                else if (!strcmp(args[0], "help")){
+                    strcpy(cmndbuf,"echo there is nothing I can help");
+                }
+                else if (!strcmp(args[0], "more")){
+                    strcpy(cmndbuf,"cat readme.txt");
+                } 
                 else if (!strcmp(args[0], "dir"))
                 { 
                     // "dir" command
@@ -101,7 +104,16 @@ int main(int argc, char **argv)
                     
                 }
                 else if (!strcmp(args[0],"cd")){
-                    
+                    if (args[1]){
+                        chdir(args[1]);
+                    }
+                    else{
+                        char buf[100];
+                        if (getcwd(buf, sizeof(buf)) == NULL) {
+                            perror("error: directory not found");
+                        }
+                        else printf("The current working directory is: %s\n",buf);
+                    }
                 }
                 else
                 { 
