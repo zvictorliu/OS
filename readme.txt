@@ -1,2 +1,2 @@
 this is help manual:
-this is nothing
+Unfortunately, there is nothing I can do
